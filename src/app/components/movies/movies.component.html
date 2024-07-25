@@ -1,0 +1,25 @@
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  @for (movie of allMovies; track movie.id) {
+  <div class="col">
+    <div class="card">
+      <img
+        [src]="'http://image.tmdb.org/t/p/w500/' + movie.poster_path"
+        class="card-img-top"
+        alt="{{ movie.title }}"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ movie.title }}</h5>
+        <p class="card-text">
+          {{ movie.overview }}
+        </p>
+        <a class="btn btn-success m-1" [routerLink]="['/details', movie.id]"
+          >Details</a
+        >
+        <!-- <a class="btn btn-success m-1" (click)="goDetails(movie.id)">Details</a> -->
+        <button class="btn btn-primary">Watch Trailer</button>
+      </div>
+    </div>
+  </div>
+
+  }
+</div>

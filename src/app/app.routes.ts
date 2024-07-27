@@ -7,6 +7,8 @@ import { MovieDetailsComponent } from './components/movie-details/movie-details.
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
+import { userGuard } from './guard/user.guard';
 
 export const routes: Routes = [
   {
@@ -18,13 +20,17 @@ export const routes: Routes = [
       { path: 'details/:id', component: MovieDetailsComponent },
       { path: 'about', component: AboutUsComponent },
       { path: 'contact', component: ContactusComponent },
-     
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
+        canActivate: [userGuard],
+      },
     ],
   },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignUpComponent },
-   //   wildcard route
-   { path: '**', component: PageNotFoundComponent },
+  //   wildcard route
+  { path: '**', component: PageNotFoundComponent },
 ];
 // export const routes: Routes = [
 //   // first match wins

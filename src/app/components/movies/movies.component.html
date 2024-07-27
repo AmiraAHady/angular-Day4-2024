@@ -1,3 +1,18 @@
+<div class="row m-5">
+  <div class="col-4">
+    <button class="btn btn-success" (click)="prevPage()" [disabled]="page == 1">
+      Prev
+    </button>
+    <button
+      class="btn btn-success"
+      (click)="nextPage()"
+      [disabled]="page >= totalPages"
+    >
+      Next
+    </button>
+  </div>
+</div>
+
 <div class="row row-cols-1 row-cols-md-3 g-4">
   @for (movie of allMovies; track movie.id) {
   <div class="col">

@@ -15,9 +15,9 @@ export class MoviesService {
 
   constructor(private http: HttpClient) {}
 
-  getAllMovies(): Observable<any> {
+  getAllMovies(pageNumber:number=1): Observable<any> {
     return this.http.get<any>(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.apiKey}&page=2`
+      `https://api.themoviedb.org/3/movie/upcoming?api_key=${this.apiKey}&page=${pageNumber}`
     );
   }
   getMovieById(id:number):Observable<any>{

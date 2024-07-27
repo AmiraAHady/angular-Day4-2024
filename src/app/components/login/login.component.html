@@ -1,19 +1,99 @@
 <div class="container m-5">
-    <h1>Login</h1>
-    <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
-        <button type="submit" class="btn btn-primary">LogIn</button>
-      </form>
+  <h1>Login -Template Driven</h1>
+  <form (ngSubmit)="addUser()" #myform="ngForm">
+    <div class="form-group">
+      <label for="exampleInputFullName">Full Name</label>
+      <!-- input referance -->
+      <input
+        type="text"
+        class="form-control"
+        id="exampleInputFullName"
+        aria-describedby="fullHelp"
+        placeholder="Enter Full Name"
+        required
+        minlength="3"
+        name="fullName"
+        [(ngModel)]="formData.fullName"
+        #fullNameInput="ngModel"
+        [ngClass]="{
+          'is-invalid':
+            (fullNameInput.touched || fullNameInput.dirty) &&
+            fullNameInput.invalid
+        }"
+      />
+    </div>
+    <span>
+      <!-- safe navigatiob -->
+      @if(fullNameInput.errors?.['required']){
+      <span class="text-danger">Full Name is Required</span>
+      } @if(fullNameInput.errors?.['minlength']){
+      <span class="text-danger">Full Name must be at least 3 chars.</span>
+      }
+    </span>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="exampleInputEmail1"
+        aria-describedby="emailHelp"
+        placeholder="Enter email"
+        required
+        pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$"
+        name="email"
+        [(ngModel)]="formData.email"
+        #formEmail="ngModel"
+        [ngClass]="{
+          'is-invalid':
+            (formEmail.touched || formEmail.dirty) && formEmail.invalid
+        }"
+      />
+    </div>
+    <span>
+      <!-- safe navigatiob -->
+      @if(formEmail.errors?.['required']){
+      <span class="text-danger">Email is Required</span>
+      } @if(formEmail.errors?.['pattern']){
+      <span class="text-danger">Email is Not Valid</span>
+      }
+    </span>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="exampleInputPassword1"
+        placeholder="Password"
+        required
+        minlength="8"
+        name="password"
+        [(ngModel)]="formData.password"
+        #formPassword="ngModel"
+        [ngClass]="{
+          'is-invalid':
+            (formPassword.touched || formPassword.dirty) && formPassword.invalid
+        }"
+      />
+    </div>
+    <span class="d-block">
+      <!-- safe navigatiob -->
+      @if(formPassword.errors?.['required']){
+      <span class="text-danger">Password is Required</span>
+      } @if(formPassword.errors?.['minlength']){
+      <span class="text-danger">Password at least 8 chars.</span>
+      }
+    </span>
+
+    <button type="submit" class="btn btn-primary" [disabled]="myform.invalid">
+      LogIn
+    </button>
+  </form>
+
+  <!-- <h2>{{fullNameInput.dirty}}</h2> -->
+  <!-- <h2>{{fullNameInput.valid}}</h2> -->
+  <!-- <h2>{{fullNameInput.touched}}</h2> -->
+  <!-- <h2>{{ fullNameInput.errors | json }}</h2>
+  <h2>{{ formEmail.errors | json }}</h2>
+  <h2>{{ formPassword.errors | json }}</h2> -->
+  <!-- <h2>{{ formPassword.errors | json }}</h2> -->
 </div>
